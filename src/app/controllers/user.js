@@ -22,22 +22,21 @@ class UserController {
     const user = await User.findByPk(req.userId)
     if (user.email !== email) {
       const userExist = await User.findAll({ where: { email } })
-      if (userExist) {
-        return res.status(401).json('error', 'User already exists')
+      if (userExist.length) {
+        return res.status(401).json({ error: 'User already exists' })
       }
-      console.log('@@@', userExist)
     }
-    // if (oldPassword && !(await User.checkPassword(oldPassword))) {
-    //   return res.status(401).json('error', 'Password does not match')
-    // }
-    // const { id, name, provider } = await User.update(req.body)
-    // // User.update({ where: { id: req.userId } })
-    // return res.json({
-    //   id,
-    //   name,
-    //   email,
-    //   provider,
-    // })
+
+    if (oldPassword && !(await User.oldPassword(oldPassword))) {
+      return res.status(401).json({ error: 'Password does not match' })
+    }
+    const { id, name, provider } = await User.update(req.body)
+    return res.json({
+      id,
+      name,
+      email,
+      provider,
+    })
   }
 }
 

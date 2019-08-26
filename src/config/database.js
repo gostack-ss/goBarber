@@ -1,9 +1,9 @@
 module.exports = {
   dialect: 'postgres',
-  host: 'localhost',
-  username: 'postgres',
-  password: 'docker',
-  database: 'gobarber',
+  host: 'isilo.db.elephantsql.com',
+  username: 'levwffvv',
+  password: 'cicmSCNWqhuroVob4yGRQXf1_tdp_2nt',
+  database: 'levwffvv',
   define: {
     timestamp: true,
     underscored: true,
