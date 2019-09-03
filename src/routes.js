@@ -8,6 +8,7 @@ import ScheduleController from './app/controllers/schedule'
 import SessionController from './app/controllers/session'
 import ProviderController from './app/controllers/provider'
 import AppointmentController from './app/controllers/appointments'
+import AvailableController from './app/controllers/available'
 import NotificationController from './app/controllers/notifications'
 import authMiddleware from './app/middlewares/auth'
 
@@ -16,18 +17,25 @@ const upload = multer(multerConfig)
 
 // rotas publicas
 routes.post('/users', UserController.store)
+
 routes.post('/sessions', SessionController.store)
 
-routes.use(authMiddleware)
+routes.use(authMiddleware) // autenticacao
 
 // rotas privadas
 routes.put('/users', UserController.update)
+
+routes.get('/providers/:providerId/available', AvailableController.index)
 routes.get('/providers', ProviderController.index)
+
 routes.post('/files', upload.single('file'), FileController.store)
+
 routes.get('/appointments', AppointmentController.index)
 routes.post('/appointments', AppointmentController.store)
 routes.delete('/appointments/:id', AppointmentController.delete)
+
 routes.get('/schedule', ScheduleController.index)
+
 routes.get('/notifications', NotificationController.index)
 routes.put('/notifications/:id', NotificationController.update)
 
